@@ -12,18 +12,17 @@ import kotlin.system.measureNanoTime
 * https://kotlinlang.org/docs/sequences.html#iterable
 */
 fun main(args: Array<String>) {
-
-    sequenceChangeOrderWhenHasIntermediaryOperation()
+    fibonacciSequence()
 }
 
 private fun sequencesVsList() {
-    val words = "The quick brown fox jumps over the lazy dog".split(" ") //.asSequence()
+    val words = "The quick brown fox jumps over the lazy dog".split(" ").asSequence()
     val lengthsList = words.filter { println("filter: $it"); it.length > 3 }
         .map { println("length: ${it.length}"); it.length }
         .take(4)
 
     println("Lengths of first 4 words longer than 3 chars:")
-    println(lengthsList) //.toList()
+    println(lengthsList.toList())
 }
 
 /*
@@ -59,7 +58,7 @@ private fun transformAndFlatCollections() {
     val result = sequenceOf(listOf(1, 2, 3, 4), listOf(4, 5, 6))
         .flatMap {
             it
-        }
+        }.toList()
 
     print(result)
 }
@@ -111,12 +110,12 @@ private fun sortDistinctMax() {
         .any { it % 3 == 0 }
 
 
-    println(resultOrderByAge)
-    println(resultDistinct)
-    println(resultMax)
-    println(resultGroupBy)
-    println(resultAssociatedBy)
-    print(resultAny)
+    println("Order by age: $resultOrderByAge")
+    println("Distinct:$resultDistinct")
+    println("Max:$resultMax")
+    println("GroupBy:$resultGroupBy")
+    println("Associated By: $resultAssociatedBy")
+    print("Any: $resultAny")
 
 }
 
@@ -156,7 +155,7 @@ private fun dataReduceOpBeforeDataTransformationsOp() {
         }
 }
 
-private fun lazynessProcessing() {
+private fun lazinessProcessing() {
 
     /**
      * No exemplo abaixo é possível notar que o map só é executado
@@ -217,7 +216,12 @@ fun printOnlyOdd(list : List<Int>) {
 private fun fibonacciSequence() {
     val result = generateSequence(Pair(0, 1)) {
         Pair(it.second, (it.first + it.second))
-    }.take(10).toList()
+    }.map {
+            print("MapTo: ")
+            it.first
+        }
+        .take(10)
+        .toList()
 
     println(result)
 }
